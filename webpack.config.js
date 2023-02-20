@@ -1,39 +1,37 @@
-const path = require('path');
-const HtmlWebpackPlugin = require('html-webpack-plugin');
+const path = require("path");
+const HtmlWebpackPlugin = require("html-webpack-plugin");
 
 module.exports = {
-  mode: 'development',
-  entry: './src/index.js',
+  mode: "development",
+  entry: "./src/index.js",
   output: {
     filename: "main.js",
     path: path.resolve(__dirname, "dist"),
-    clean: true
+    clean: true,
   },
-  devtool: 'inline-source-map',
+  devtool: "inline-source-map",
   plugins: [
     new HtmlWebpackPlugin({
-        title: 'Todo List 2',
-    })
+      title: "Todo List 2",
+    }),
   ],
   devServer: {
-    static: './dist',
+    static: "./dist",
   },
   module: {
     rules: [
-        {
-            test: /\.css$/i,
-            use: ['style-loader', 'css-loader'],
-        },
-        {
-            test: /\.(png|jpg|jpeg|svg|gif)$/i,
-            type: 'asset/resource',
-        },
-        {
-            test: /\.(woff|woff2|ttf|otf|eot)$/i,
-            type: 'asset/resource',
-        }
-    ]
+      {
+        test: /\.css$/i,
+        use: ["style-loader", "css-loader"],
+      },
+      {
+        test: /\.(png|jpg|jpeg|svg|gif)$/i,
+        type: "asset/resource",
+      },
+      {
+        test: /\.(woff|woff2|ttf|otf|eot)$/i,
+        type: "asset/resource",
+      },
+    ],
   },
 };
-
-
