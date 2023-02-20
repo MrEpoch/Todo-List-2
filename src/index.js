@@ -14,7 +14,7 @@ function loadFolderCheck() {
   }
 }
 
-console.log(JSON.parse(localStorage.getItem("Todo-List-2")).main);
+function loadNewFolder(item) {}
 
 loadFolderCheck();
 
@@ -60,6 +60,36 @@ function createMainBody() {
 
 // temporary
 src.append(createSideBar(), createMainBody());
+
+function folderControlLogic() {
+  const addBtn = src.querySelector(".add-folder");
+  const contFolder = src.querySelector(".control-folder");
+  function addMenu() {
+    const menu = create.divCreate("", "menu-folder");
+    const add = create.divCreate("add", "add-menu");
+    const cancel = create.divCreate("cancel", "cancel-menu");
+    const input = create.inputCreate("", "input-menu");
+    menu.append(input, add, cancel);
+    return menu;
+  }
+  addBtn.addEventListener("click", () => {
+    const after = contFolder.innerHTML;
+    contFolder.innerHTML = "";
+    contFolder.append(addMenu());
+    const newAdd = contFolder.querySelector(".add-menu");
+    const decline = contFolder.querySelector(".cancel-menu");
+    newAdd.addEventListener("click", () => {
+      contFolder.innerHTML = after;
+      folderControlLogic();
+    });
+    decline.addEventListener("click", () => {
+      contFolder.innerHTML = after;
+      folderControlLogic();
+    });
+  });
+}
+
+folderControlLogic();
 
 src.querySelector(".side-name").addEventListener("click", () => {
   window.location.reload();
