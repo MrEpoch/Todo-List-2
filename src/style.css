@@ -7,6 +7,7 @@
 :root {
   --body-background: #dcdcdc;
   --sidebar-background: #fffafa;
+  --name-container-color: #cffafe;
 }
 
 html,
@@ -27,7 +28,7 @@ body {
   width: 100%;
   height: 100%;
   display: grid;
-  grid-template-columns: 1fr 5fr;
+  grid-template-columns: 1fr 4fr;
 }
 
 .sidebar {
@@ -36,7 +37,69 @@ body {
   background-color: var(--sidebar-background);
 }
 
-.sidebar * {
+.sidebar > * {
   align-self: center;
   justify-self: center;
+}
+
+.side-name-container {
+  width: 100%;
+  align-self: normal;
+  background-color: var(--name-container-color);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.side-name-container:hover {
+  border-bottom: 3px solid black;
+  border-right: 3px solid black;
+}
+
+.side-name {
+  cursor: pointer;
+}
+
+.side-name:hover {
+  font-size: 20px;
+}
+
+.main-container {
+  display: grid;
+  grid-template: 1fr 10fr / 1fr 4fr 1fr;
+}
+
+.main-middle {
+  grid-area: 2 / 2 / 3 / 3;
+}
+
+.control-folder {
+  align-self: normal;
+  width: 100%;
+  border-top: 2px solid black;
+  border-bottom: 2px solid black;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+}
+
+.add-folder {
+  background-color: greenyellow;
+  width: 50%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.delete-folder {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 50%;
+  height: 100%;
+  background-color: red;
+}
+
+.bar-add {
 }
