@@ -22,10 +22,20 @@ function loadNewFolder(folder) {
 }
 
 function nameLoad(AppendHere) {
+  AppendHere.innerHTML = "";
   for (const name in allFolder) {
     if (name !== "main") {
+      const contName = create.divCreate("", "container-name");
+      const delName = create.divCreate("del", `delete-name`);
       const nameH4 = create.h4Create(name, `${name}-bar`);
-      AppendHere.append(nameH4);
+      contName.append(nameH4, delName);
+      AppendHere.append(contName);
+      const delLogic = AppendHere.querySelector(`.delete-name`);
+      delLogic.addEventListener("click", () => {
+        console.log("del logic");
+        delete allFolder[name];
+        localStorage.setItem("Todo-List-2", JSON.stringify(allFolder));
+      });
     }
   }
 }
@@ -39,9 +49,8 @@ function createSideBar() {
 
   function createFolderControl() {
     const controlBar = create.divCreate("", "control-folder");
-    const deleteFolder = create.divCreate("del", "delete-folder");
     const addFolder = create.divCreate("add", "add-folder");
-    controlBar.append(addFolder, deleteFolder);
+    controlBar.append(addFolder);
     return controlBar;
   }
 
@@ -95,8 +104,10 @@ function folderControlLogic() {
     const decline = contFolder.querySelector(".cancel-menu");
     const inputVal = contFolder.querySelector(".input-menu");
     newAdd.addEventListener("click", () => {
-      if (FolderBar) loadNewFolder(inputVal.value);
-      nameLoad(FolderBar);
+      if (inputVal.value.trim().length !== 0) {
+        nameLoad(FolderBar);
+        if (FolderBar) loadNewFolder(inputVal.value);
+      }
       contFolder.innerHTML = after;
       folderControlLogic();
     });
@@ -105,6 +116,7 @@ function folderControlLogic() {
       folderControlLogic();
     });
   });
+  const folderDel = src.querySelector(".delete-name");
 }
 
 folderControlLogic();
