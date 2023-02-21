@@ -14,9 +14,21 @@ function loadFolderCheck() {
   }
 }
 
-function loadNewFolder(item) {}
-
 loadFolderCheck();
+
+function loadNewFolder(folder) {
+  allFolder[folder] = [];
+  localStorage.setItem("Todo-List-2", JSON.stringify(allFolder));
+}
+
+function nameLoad(AppendHere) {
+  for (const name in allFolder) {
+    if (name !== "main") {
+      const nameH4 = create.h4Create(name, `${name}-bar`);
+      AppendHere.append(nameH4);
+    }
+  }
+}
 
 function createSideBar() {
   const sideBar = create.divCreate("", "sidebar");
@@ -61,6 +73,9 @@ function createMainBody() {
 // temporary
 src.append(createSideBar(), createMainBody());
 
+const FolderBar = src.querySelector(".bar-add");
+nameLoad(FolderBar);
+
 function folderControlLogic() {
   const addBtn = src.querySelector(".add-folder");
   const contFolder = src.querySelector(".control-folder");
@@ -78,7 +93,10 @@ function folderControlLogic() {
     contFolder.append(addMenu());
     const newAdd = contFolder.querySelector(".add-menu");
     const decline = contFolder.querySelector(".cancel-menu");
+    const inputVal = contFolder.querySelector(".input-menu");
     newAdd.addEventListener("click", () => {
+      if (FolderBar) loadNewFolder(inputVal.value);
+      nameLoad(FolderBar);
       contFolder.innerHTML = after;
       folderControlLogic();
     });
