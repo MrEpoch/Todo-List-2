@@ -35,9 +35,17 @@ function nameLoad(AppendHere) {
         console.log("del logic");
         delete allFolder[name];
         localStorage.setItem("Todo-List-2", JSON.stringify(allFolder));
+        nameLoad(AppendHere);
       });
     }
   }
+}
+
+function maxFoldersWarn(AppendHere) {
+  const divWarn = create.divCreate("Max 10 folders", "max-length");
+  divWarn.style.backgroundColor = "red";
+  AppendHere.append(divWarn);
+  return setInterval("", 5000);
 }
 
 function createSideBar() {
@@ -104,12 +112,20 @@ function folderControlLogic() {
     const decline = contFolder.querySelector(".cancel-menu");
     const inputVal = contFolder.querySelector(".input-menu");
     newAdd.addEventListener("click", () => {
-      if (inputVal.value.trim().length !== 0) {
+      if (
+        inputVal.value.trim().length !== 0 &&
+        Object.keys(allFolder).length <= 10
+      ) {
+        loadNewFolder(inputVal.value);
         nameLoad(FolderBar);
-        if (FolderBar) loadNewFolder(inputVal.value);
+        contFolder.innerHTML = after;
+        folderControlLogic();
+      } else {
+        maxFoldersWarn(contFolder).then(() => {
+          contFolder.innerHTML = after;
+          folderControlLogic();
+        });
       }
-      contFolder.innerHTML = after;
-      folderControlLogic();
     });
     decline.addEventListener("click", () => {
       contFolder.innerHTML = after;
